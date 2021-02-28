@@ -128,7 +128,12 @@ bool MyString::isEmpty() const {
 }
 
 const char* MyString::rawString() const {
-	return _data;
+	char* resString = new char[this->_size + 1];
+	for (size_t i = 0; i < this->_size; ++i) {
+		resString[i] = this->_data[i];
+	}
+	resString[this->_size] = '\0';
+	return resString;
 }
 
 unsigned int MyString::find(const MyString& substring, unsigned int pos) {
