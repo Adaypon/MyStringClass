@@ -172,6 +172,30 @@ MyString& MyString::operator+(const MyString& appendedString) {
     return *this;
 }
 
+bool MyString::operator==(const MyString& comparableString) const {
+	return (this->compare(comparableString) == 0);
+}
+
+bool MyString::operator!=(const MyString& comparableString) const {
+	return (this->compare(comparableString) != 0);
+}
+
+bool MyString::operator>(const MyString& comparableString) const {
+	return (this->compare(comparableString) > 0);
+}
+
+bool MyString::operator<(const MyString& comparableString) const {
+	return (this->compare(comparableString) < 0);
+}
+
+bool MyString::operator>=(const MyString& comparableString) const {
+	return (this->compare(comparableString) >= 0);
+}
+
+bool MyString::operator<=(const MyString& comparableString) const {
+	return (this->compare(comparableString) <= 0);
+}
+
 void MyString::print() {
 	for (int i = 0; i < _size; ++i) {
 		std::cout << _data[i];
@@ -179,8 +203,9 @@ void MyString::print() {
 }
 
 int main() {
-	MyString str("abc");
-	MyString str2("abb");
-	std::cout << str.compare(str2) << std::endl;
-	return 0;
+	MyString str("a");
+	MyString str2("a");
+	bool f = (str >= str2);
+	std::cout << std::boolalpha;
+	std::cout << f << std::endl;
 }
