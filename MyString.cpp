@@ -129,6 +129,17 @@ const char* MyString::rawString() const {
 	return _data;
 }
 
+unsigned int MyString::find(const MyString& substring, unsigned int pos) {
+	size_t i = 0, j = 0;
+	for (i = pos; i < this->_size + substring._size; ++i) {
+		for (j = 0; j < substring._size && this->_data[i+j] == substring._data[j]; j++);
+		if (j == substring._size) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 char& MyString::operator[](const unsigned int idx) {
     return at(idx);
 }
@@ -149,18 +160,8 @@ void MyString::print() {
 }
 
 int main() {
-	
-	MyString str("Hello");
-	MyString str2("Hi");
-	MyString str3("TEST");
-	str.append(str2);
-	str.print();
-	std::cout << std::endl;
-	str.insert(3, str3);
-	str.print();
-	std::cout << std::endl;
-	str.erase(3, 4);
-	str.print();
-	std::cout << std::endl;
+	MyString str("1AaBbAaBb");
+	MyString str2("Aa");
+	std::cout << str.find(str2, 4) << std::endl;
 	return 0;
 }
