@@ -125,6 +125,10 @@ bool MyString::isEmpty() const {
 	return (_size == 0);
 }
 
+const char* MyString::rawString() const {
+	return _data;
+}
+
 char& MyString::operator[](const unsigned int idx) {
     return at(idx);
 }
