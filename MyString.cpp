@@ -1,28 +1,31 @@
 #include "MyString.h"
 
+#include <iostream>
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
 
 MyString::MyString(const char* rawString) 
 	: _size(strlen(rawString)), _data(new char[_size]) {
-	//| TODO try memcpy()
+	memcpy(this->_data, rawString, _size);
+	/*
     for (size_t i = 0; i < _size; ++i) {
 		this->_data[i] = rawString[i];		
 	}
+	*/
 }
 
 MyString::MyString(const MyString& other) {
 	this->_size = other._size;
 	this->_data = new char[_size];
 	for (size_t i = 0; i < this->_size; ++i) {
-		this->_data[i] = copy._data[i];
+		this->_data[i] = other._data[i];
 	}
 }
 
 MyString::MyString(MyString&& other) noexcept {
 	this->_size = other._size;
-	this->_data = ohter._data;
+	this->_data = other._data;
 	other._size = 0;
 	other._data = nullptr;
 }
@@ -45,20 +48,22 @@ MyString::~MyString() {
 }
 
 void MyString::append(const MyString& appendedString) {
-	char* tmpString = new char[this->_size + appendedString._size];
-	for (size_t i = 0; i < this->_size; ++i) {
-		tmpString[i] = this->_data;
+	size_t i = 0, j = 0;
+	unsigned int tmpSize = this->_size + appendedString._size;
+	char* tmpString = new char[tmpSize];
+	
+	memcpy(tmpString, this->_data, this->_size);
+	for (i = this->_size; j < tmpSize; ++i, ++j) {
+		tmpString[i] = appendedString._data[j];		
 	}
-	for (size_t j = 0; j < appendedString._size; ++j) {
-		tmpString[j] = appendedString._data[j];		
-	}
+		
 	delete[] this->_data;
 	this->_data = tmpString;
-	this->_size += appendedString;
+	this->_size = tmpSize;
 }
 
 void MyString::insert(unsigned int pos, const MyString& insertedString) {
-	if (pos >= this->_size) {
+	if (pos < 0 || pos >= this->_size) {
 		// non-valid pos
 		return;
 	}
@@ -66,16 +71,14 @@ void MyString::insert(unsigned int pos, const MyString& insertedString) {
 	unsigned int tmpSize = this->_size + insertedString._size;
 	char* tmpString = new char[tmpSize];
 	
-	
-	for (; i < pos; ++i) {
-		tmpString[i] = this->_data[i];
+	memcpy(tmpString, this->_data, pos);
+	for (i = pos; j < insertedString._size; ++i, ++j) {
+		tmpString[i] = insertedString._data[j];
 	}
-	for (j = i; j < insertedString._size; ++j) {
-		tmpString[j] = insertedString._data[j];
+	for (j = pos; i < tmpSize; ++i, ++j) {
+		tmpString[i] = this->_data[j];
 	}
-	for (; j < tmpSize; j++, i++) {
-		tmpString[j] = this->_data[i];
-	}
+
 	delete[] this->_data;
 	this->_data = tmpString;
 	this->_size = tmpSize;
@@ -91,6 +94,10 @@ const char& MyString::at(const unsigned int idx) const {
     return _data[idx];
 }
 
+unsigned int MyString::size() const {
+	return _size;
+}
+
 char& MyString::operator[](const unsigned int idx) {
     return at(idx);
 }
@@ -102,4 +109,25 @@ const char& MyString::operator[](const unsigned int idx) const {
 MyString& MyString::operator+(const MyString& appendedString) {
     this->append(appendedString);
     return *this;
+}
+
+void MyString::print() {
+	for (int i = 0; i < _size; ++i) {
+		std::cout << _data[i];
+	}
+}
+
+int main() {
+	/*
+	MyString str("Hello");
+	MyString str2("Hi");
+	MyString str3("TEST");
+	str.append(str2);
+	str.print();
+	std::cout << std::endl;
+	str.insert(3, str3);
+	str.print();
+	std::cout << std::endl;
+	*/
+	return 0;
 }
