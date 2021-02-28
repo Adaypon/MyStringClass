@@ -33,8 +33,10 @@ MyString& MyString::operator=(const MyString& other) {
 }
 
 MyString& MyString::operator=(MyString&& other) noexcept {
-    // TODO
-	
+	this->_size = other._size;
+	this->_data = other._data;
+	other._size = 0;
+	other._data = nullptr;
     return *this;
 }
 
