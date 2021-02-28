@@ -121,6 +121,10 @@ unsigned int MyString::size() const {
 	return _size;
 }
 
+bool MyString::isEmpty() const {
+	return (_size == 0);
+}
+
 char& MyString::operator[](const unsigned int idx) {
     return at(idx);
 }
