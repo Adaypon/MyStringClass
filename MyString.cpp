@@ -79,6 +79,11 @@ void MyString::insert(unsigned int pos, const MyString& insertedString) {
 	this->_size = tmpSize;
 }
 
+void MyString::clear() {
+	_data = nullptr;
+	_size = 0;
+}
+
 char& MyString::at(const unsigned int idx) {
     assert(idx < size());
     return _data[idx];
