@@ -58,7 +58,7 @@ void MyString::append(const MyString& appendedString) {
 }
 
 void MyString::insert(unsigned int pos, const MyString& insertedString) {
-	if (pos < 0 || pos >= this->_size) {
+	if (pos >= this->_size) {
 		// non-valid pos
 		return;
 	}
@@ -82,6 +82,29 @@ void MyString::insert(unsigned int pos, const MyString& insertedString) {
 void MyString::clear() {
 	_data = nullptr;
 	_size = 0;
+}
+
+void MyString::erase(unsigned int pos, unsigned int count) {
+	if (pos >= this->_size) {
+		// non-valid pos
+		return;
+	}
+	if (count > this->_size - pos) {
+		count = this->_size - pos;
+	}
+
+	size_t i = 0, j = 0;
+	unsigned int tmpSize = this->_size - count;
+	char* tmpString = new char[tmpSize];
+	
+	memcpy(tmpString, this->_data, pos);
+	for (i = pos, j = pos + count; j < this->_size; ++i, ++j) {
+		tmpString[i] = this->_data[j];
+	}
+
+	delete[] this->_data;
+	this->_data = tmpString;
+	this->_size = tmpSize;
 }
 
 char& MyString::at(const unsigned int idx) {
@@ -118,7 +141,7 @@ void MyString::print() {
 }
 
 int main() {
-	/*
+	
 	MyString str("Hello");
 	MyString str2("Hi");
 	MyString str3("TEST");
@@ -128,6 +151,8 @@ int main() {
 	str.insert(3, str3);
 	str.print();
 	std::cout << std::endl;
-	*/
+	str.erase(3, 4);
+	str.print();
+	std::cout << std::endl;
 	return 0;
 }
