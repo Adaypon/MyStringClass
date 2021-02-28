@@ -203,11 +203,3 @@ void MyString::print() {
 		std::cout << _data[i];
 	}
 }
-
-int main() {
-	MyString str("a");
-	MyString str2("a");
-	bool f = (str >= str2);
-	std::cout << std::boolalpha;
-	std::cout << f << std::endl;
-}
