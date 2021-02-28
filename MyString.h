@@ -54,7 +54,7 @@ public:
     const char& at(unsigned int idx) const;
 
     /*!
-        get string sise
+        get string size
         \return count of characters
     */
     unsigned int size() const;
