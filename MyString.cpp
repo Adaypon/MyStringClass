@@ -197,9 +197,3 @@ bool MyString::operator>=(const MyString& comparableString) const {
 bool MyString::operator<=(const MyString& comparableString) const {
 	return (this->compare(comparableString) <= 0);
 }
-
-void MyString::print() {
-	for (int i = 0; i < _size; ++i) {
-		std::cout << _data[i];
-	}
-}
