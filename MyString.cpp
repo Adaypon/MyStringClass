@@ -140,6 +140,25 @@ unsigned int MyString::find(const MyString& substring, unsigned int pos) {
 	return -1;
 }
 
+int MyString::compare(const MyString& comparableString) const {
+	if (this->_size > comparableString._size) {
+		return 1;
+	}
+	else if (this->_size < comparableString._size) {
+		return -1;
+	}
+
+	for (size_t i = 0; i < this->_size; ++i) {
+		if (this->_data[i] > comparableString._data[i]) {
+			return 1;
+		}
+		else if (this->_data[i] < comparableString._data[i]) {
+			return -1;
+		}
+	}
+	return 0;
+}
+
 char& MyString::operator[](const unsigned int idx) {
     return at(idx);
 }
@@ -160,8 +179,8 @@ void MyString::print() {
 }
 
 int main() {
-	MyString str("1AaBbAaBb");
-	MyString str2("Aa");
-	std::cout << str.find(str2, 4) << std::endl;
+	MyString str("abc");
+	MyString str2("abb");
+	std::cout << str.compare(str2) << std::endl;
 	return 0;
 }
