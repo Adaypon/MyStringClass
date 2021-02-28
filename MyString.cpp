@@ -82,7 +82,7 @@ void MyString::insert(unsigned int pos, const MyString& insertedString) {
 }
 
 void MyString::clear() {
-	_data = nullptr;
+	delete[] _data;
 	_size = 0;
 }
 
