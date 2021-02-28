@@ -104,7 +104,10 @@ public:
     bool operator<(const MyString& comparableString) const;
     bool operator>=(const MyString& comparableString) const;
     bool operator<=(const MyString& comparableString) const;
-
+    
+    /*!
+        print string
+    */
     void print();
 private:
     char* _data;
