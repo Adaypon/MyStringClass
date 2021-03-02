@@ -10,9 +10,8 @@ MyString::MyString(const char* rawString)
 	memcpy(this->_data, rawString, _size);
 }
 
-MyString::MyString(const MyString& other) {
-	this->_size = other._size;
-	this->_data = new char[_size];
+MyString::MyString(const MyString& other) 
+	: _size(other._size), _data(new char[_size]) {
 	for (size_t i = 0; i < this->_size; ++i) {
 		this->_data[i] = other._data[i];
 	}
