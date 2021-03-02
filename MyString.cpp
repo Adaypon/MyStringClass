@@ -6,22 +6,24 @@
 #include <cstring>
 
 MyString::MyString(const char* rawString) 
-	: _size(strlen(rawString)), _data(new char[_size]) {
+	: _size(strlen(rawString)), _data(new char[_size]) 
+{
 	memcpy(this->_data, rawString, _size);
 }
 
-MyString::MyString(const MyString& other) 
-	: _size(other._size), _data(new char[_size]) {
+MyString::MyString(const MyString& other)
+	: _size(other._size), _data(new char[_size]) 
+{
 	for (size_t i = 0; i < this->_size; ++i) {
 		this->_data[i] = other._data[i];
 	}
 }
 
-MyString::MyString(MyString&& other) noexcept {
-	this->_size = other._size;
-	this->_data = other._data;
-	other._size = 0;
+MyString::MyString(MyString&& other) noexcept 
+	: _size(other._size), _data(other._data) 
+{
 	other._data = nullptr;
+	other._size = 0;
 }
 
 MyString& MyString::operator=(const MyString& other) {
