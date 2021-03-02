@@ -45,22 +45,11 @@ MyString::~MyString() {
 }
 
 void MyString::append(const MyString& appendedString) {
-	size_t i = 0, j = 0;
-	unsigned int tmpSize = this->_size + appendedString._size;
-	char* tmpString = new char[tmpSize];
-	
-	memcpy(tmpString, this->_data, this->_size);
-	for (i = this->_size; j < tmpSize; ++i, ++j) {
-		tmpString[i] = appendedString._data[j];		
-	}
-		
-	delete[] this->_data;
-	this->_data = tmpString;
-	this->_size = tmpSize;
+	this->insert(_size, appendedString);
 }
 
 void MyString::insert(unsigned int pos, const MyString& insertedString) {
-	if (pos >= this->_size) {
+	if (pos > this->_size) {
 		// non-valid pos
 		return;
 	}
