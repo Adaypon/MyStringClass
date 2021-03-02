@@ -26,18 +26,32 @@ MyString::MyString(MyString&& other) noexcept
 	other._size = 0;
 }
 
-MyString& MyString::operator=(const MyString& other) {
-	MyString copy(other);
-	std::swap(this->_data, copy._data);
-	std::swap(this->_size, copy._size);
+MyString& MyString::operator=(const MyString& other) 
+{
+	this->_size = other._size;
+
+	if (this->_data != nullptr) {
+		delete[] this->_data;
+	}
+
+	this->_data = new char[_size];
+	for (size_t i = 0; i < this->_size; ++i) {
+		this->_data[i] = other._data[i];
+	}
     return *this;
 }
 
-MyString& MyString::operator=(MyString&& other) noexcept {
+MyString& MyString::operator=(MyString&& other) noexcept 
+{
 	this->_size = other._size;
+
+	if (this->_data != nullptr) {
+		delete[] this->_data;
+	}
+
 	this->_data = other._data;
-	other._size = 0;
 	other._data = nullptr;
+	other._size = 0;
     return *this;
 }
 
