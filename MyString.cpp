@@ -22,8 +22,11 @@ MyString::MyString(const MyString& other)
 MyString::MyString(MyString&& other) noexcept 
 	: _size(other._size), _data(other._data) 
 {
-	other._data = nullptr;
-	other._size = 0;
+	if (this != &other) {
+		other._data = nullptr;
+		other._size = 0;
+	}
+	
 }
 
 MyString& MyString::operator=(const MyString& other) 
@@ -43,12 +46,14 @@ MyString& MyString::operator=(const MyString& other)
 
 MyString& MyString::operator=(MyString&& other) noexcept 
 {
+	if (this == &other) {
+		return *this;
+	}
+	
 	this->_size = other._size;
-
 	if (this->_data != nullptr) {
 		delete[] this->_data;
 	}
-
 	this->_data = other._data;
 	other._data = nullptr;
 	other._size = 0;
