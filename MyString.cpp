@@ -8,11 +8,11 @@
 MyString::MyString(const char* rawString) {
 	if (rawString != nullptr) {
 		_size = std::strlen(rawString);
-		_data = new char[_size]
+		_data = new char[_size];
 		for (size_t i = 0; i < this->_size; ++i) {
 			this->_data[i] = rawString[i];
 		}
-	}	
+	}
 }
 
 MyString::MyString(const MyString& other)
@@ -26,11 +26,8 @@ MyString::MyString(const MyString& other)
 MyString::MyString(MyString&& other) noexcept 
 	: _size(other._size), _data(other._data) 
 {
-	if (this != &other) {
-		other._data = nullptr;
-		other._size = 0;
-	}
-	
+	other._data = nullptr;
+	other._size = 0;
 }
 
 MyString& MyString::operator=(const MyString& other) 
@@ -215,3 +212,10 @@ bool MyString::operator>=(const MyString& comparableString) const {
 bool MyString::operator<=(const MyString& comparableString) const {
 	return (this->compare(comparableString) <= 0);
 }
+
+/*
+int main() {
+
+	return 0;
+}
+*/
