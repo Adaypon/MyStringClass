@@ -133,7 +133,7 @@ unsigned int MyString::size() const {
 }
 
 bool MyString::isEmpty() const {
-	return (_size == 0);
+	return size() == 0;
 }
 
 const char* MyString::rawString() const {
