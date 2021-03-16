@@ -5,10 +5,14 @@
 #include <cstdlib>
 #include <cstring>
 
-MyString::MyString(const char* rawString) 
-	: _size(strlen(rawString)), _data(new char[_size]) 
-{
-	memcpy(this->_data, rawString, _size);
+MyString::MyString(const char* rawString) {
+	if (rawString != nullptr) {
+		_size = std::strlen(rawString);
+		_data = new char[_size]
+		for (size_t i = 0; i < this->_size; ++i) {
+			this->_data[i] = rawString[i];
+		}
+	}	
 }
 
 MyString::MyString(const MyString& other)
