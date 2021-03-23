@@ -69,25 +69,30 @@ void MyString::append(const MyString& appendedString) {
 }
 
 void MyString::insert(unsigned int pos, const MyString& insertedString) {
+	/*
 	if (pos > this->_size) {
 		// non-valid pos
 		return;
 	}
-	size_t i = 0, j = 0;
-	unsigned int tmpSize = this->_size + insertedString._size;
-	char* tmpString = new char[tmpSize];
-	
-	memcpy(tmpString, this->_data, pos);
-	for (i = pos; j < insertedString._size; ++i, ++j) {
-		tmpString[i] = insertedString._data[j];
-	}
-	for (j = pos; i < tmpSize; ++i, ++j) {
-		tmpString[i] = this->_data[j];
-	}
+	*/
+	if (pos <= size()) {
+		size_t i = 0, j = 0;
+		unsigned int tmpSize = this->_size + insertedString._size;
+		char* tmpString = new char[tmpSize];
+		
+		memcpy(tmpString, this->_data, pos);
+		for (i = pos; j < insertedString._size; ++i, ++j) {
+			tmpString[i] = insertedString._data[j];
+		}
+		for (j = pos; i < tmpSize; ++i, ++j) {
+			tmpString[i] = this->_data[j];
+		}
 
-	delete[] this->_data;
-	this->_data = tmpString;
-	this->_size = tmpSize;
+		delete[] this->_data;
+		this->_data = tmpString;
+		this->_size = tmpSize;
+	}
+	else throw std::out_of_range("pos > size");
 }
 
 void MyString::clear() {
@@ -96,26 +101,31 @@ void MyString::clear() {
 }
 
 void MyString::erase(unsigned int pos, unsigned int count) {
+	/*
 	if (pos >= this->_size) {
 		// non-valid pos
 		return;
 	}
-	if (count > this->_size - pos) {
-		count = this->_size - pos;
-	}
+	*/
+	if (pos < size()) {
+		if (count > this->_size - pos) {
+			count = this->_size - pos;
+		}
 
-	size_t i = 0, j = 0;
-	unsigned int tmpSize = this->_size - count;
-	char* tmpString = new char[tmpSize];
-	
-	memcpy(tmpString, this->_data, pos);
-	for (i = pos, j = pos + count; j < this->_size; ++i, ++j) {
-		tmpString[i] = this->_data[j];
-	}
+		size_t i = 0, j = 0;
+		unsigned int tmpSize = this->_size - count;
+		char* tmpString = new char[tmpSize];
+		
+		memcpy(tmpString, this->_data, pos);
+		for (i = pos, j = pos + count; j < this->_size; ++i, ++j) {
+			tmpString[i] = this->_data[j];
+		}
 
-	delete[] this->_data;
-	this->_data = tmpString;
-	this->_size = tmpSize;
+		delete[] this->_data;
+		this->_data = tmpString;
+		this->_size = tmpSize;
+	}
+	else throw std::out_of_range("pos >= size");
 }
 
 char& MyString::at(const unsigned int idx) {
@@ -123,7 +133,7 @@ char& MyString::at(const unsigned int idx) {
 	if (idx < size()) {
     	return _data[idx];
 	}
-	throw std::out_of_range(">= size");
+	throw std::out_of_range("idx >= size");
 }
 
 const char& MyString::at(const unsigned int idx) const {
@@ -131,7 +141,7 @@ const char& MyString::at(const unsigned int idx) const {
 	if (idx < size()) {
     	return _data[idx];
 	}
-	throw std::out_of_range(">= size");
+	throw std::out_of_range("idx >= size");
 }
 
 unsigned int MyString::size() const {
@@ -217,10 +227,3 @@ bool MyString::operator>=(const MyString& comparableString) const {
 bool MyString::operator<=(const MyString& comparableString) const {
 	return (this->compare(comparableString) <= 0);
 }
-
-/*
-int main() {
-
-	return 0;
-}
-*/
