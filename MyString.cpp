@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
+#include <exception>
 
 MyString::MyString(const char* rawString) {
 	if (rawString != nullptr) {
@@ -118,13 +119,19 @@ void MyString::erase(unsigned int pos, unsigned int count) {
 }
 
 char& MyString::at(const unsigned int idx) {
-    assert(idx < size());
-    return _data[idx];
+    //assert(idx < size());
+	if (idx < size()) {
+    	return _data[idx];
+	}
+	throw std::out_of_range(">= size");
 }
 
 const char& MyString::at(const unsigned int idx) const {
-    assert(idx < size());
-    return _data[idx];
+    //assert(idx < size());
+	if (idx < size()) {
+    	return _data[idx];
+	}
+	throw std::out_of_range(">= size");
 }
 
 unsigned int MyString::size() const {
