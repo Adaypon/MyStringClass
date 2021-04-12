@@ -1,11 +1,5 @@
 #include "MyString.h"
 
-#include <iostream>
-#include <cassert>
-#include <cstdlib>
-#include <cstring>
-#include <exception>
-
 MyString::MyString(const char* rawString) {
 	if (rawString != nullptr) {
 		_size = std::strlen(rawString);
@@ -92,7 +86,8 @@ void MyString::insert(unsigned int pos, const MyString& insertedString) {
 		this->_data = tmpString;
 		this->_size = tmpSize;
 	}
-	else throw std::out_of_range("pos > size");
+	//else throw std::out_of_range("pos > size");
+	else throw InsertException(*this, pos);
 }
 
 void MyString::clear() {
@@ -125,7 +120,8 @@ void MyString::erase(unsigned int pos, unsigned int count) {
 		this->_data = tmpString;
 		this->_size = tmpSize;
 	}
-	else throw std::out_of_range("pos >= size");
+	//else throw std::out_of_range("pos >= size");
+	else throw EraseException(*this, pos);
 }
 
 char& MyString::at(const unsigned int idx) {
@@ -133,7 +129,8 @@ char& MyString::at(const unsigned int idx) {
 	if (idx < size()) {
     	return _data[idx];
 	}
-	throw std::out_of_range("idx >= size");
+	//throw std::out_of_range("idx >= size");
+	throw AtException(*this, idx);
 }
 
 const char& MyString::at(const unsigned int idx) const {
@@ -141,7 +138,8 @@ const char& MyString::at(const unsigned int idx) const {
 	if (idx < size()) {
     	return _data[idx];
 	}
-	throw std::out_of_range("idx >= size");
+	//throw std::out_of_range("idx >= size");
+	throw AtException(*this, idx);
 }
 
 unsigned int MyString::size() const {
@@ -227,3 +225,18 @@ bool MyString::operator>=(const MyString& comparableString) const {
 bool MyString::operator<=(const MyString& comparableString) const {
 	return (this->compare(comparableString) <= 0);
 }
+
+/*
+int main() {
+	MyString str("Hello");
+	std::cout << str.rawString() << std::endl;
+	try {
+		str.erase(10, 15);
+	}
+	catch (MyStringException& e) {
+		std::cout << e.what() << std::endl;
+	}
+	std::cout << str.rawString() << std::endl;
+	return 0;
+}
+*/
