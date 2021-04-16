@@ -198,8 +198,9 @@ const char& MyString::operator[](const unsigned int idx) const {
 }
 
 MyString& MyString::operator+(const MyString& appendedString) {
-    this->append(appendedString);
-    return *this;
+	MyString copy(*this);
+	copy.append(appendedString);
+	return copy;
 }
 
 bool MyString::operator==(const MyString& comparableString) const {
